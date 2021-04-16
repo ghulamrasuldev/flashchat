@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-
-class LoginScreen extends StatefulWidget {
+class RegistrationScreen extends StatefulWidget {
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _RegistrationScreenState createState() => _RegistrationScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegistrationScreenState extends State<RegistrationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,8 +26,8 @@ class _LoginScreenState extends State<LoginScreen> {
               },
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(30)),
-                  borderSide: BorderSide(color: Colors.lightBlueAccent, width: 1)
+                    borderRadius: BorderRadius.all(Radius.circular(30)),
+                    borderSide: BorderSide(color: Colors.lightBlueAccent, width: 1)
                 ),
                 hintText: 'Email/Username',
                 contentPadding: EdgeInsets.symmetric(vertical: 20,horizontal: 20),
@@ -85,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   minWidth: 200.0,
                   height: 42.0,
                   child: Text(
-                    'Log In',
+                    'Register',
                   ),
                 ),
               ),

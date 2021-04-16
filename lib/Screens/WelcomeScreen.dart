@@ -17,6 +17,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           children: <Widget>[
             Row(
               children: <Widget>[
+                //Logo and Text (FlashChat)
                 Container(
                   child: Image.asset('images/logo.png'),
                   height: 60.0,
@@ -30,9 +31,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 ),
               ],
             ),
+            //Sized Box to add some room
             SizedBox(
               height: 48.0,
             ),
+            //Login Screen Button
             Padding(
               padding: EdgeInsets.symmetric(vertical: 16.0),
               child: Material(
@@ -52,6 +55,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 ),
               ),
             ),
+            //Sign Up Screen Button
             Padding(
               padding: EdgeInsets.symmetric(vertical: 16.0),
               child: Material(

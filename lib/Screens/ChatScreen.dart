@@ -15,6 +15,7 @@ class _ChatScreenState extends State<ChatScreen> {
             icon: Icon(Icons.close),
             onPressed: () {
               //function
+              Navigator.pop(context);
             },
           ),
         ],

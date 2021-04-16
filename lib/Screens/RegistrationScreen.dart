@@ -80,6 +80,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 child: MaterialButton(
                   onPressed: () {
                     //Go to login screen.
+                    Navigator.pushNamed(context, '4.Chat');
                   },
                   minWidth: 200.0,
                   height: 42.0,

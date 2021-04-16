@@ -42,6 +42,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 child: MaterialButton(
                   onPressed: () {
                     //Go to login screen.
+                    Navigator.pushNamed(context, '2.Login');
                   },
                   minWidth: 200.0,
                   height: 42.0,
@@ -60,6 +61,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 child: MaterialButton(
                   onPressed: () {
                     //Go to registration screen.
+                    Navigator.pushNamed(context, '3.Register');
                   },
                   minWidth: 200.0,
                   height: 42.0,

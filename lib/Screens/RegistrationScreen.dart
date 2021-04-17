@@ -1,7 +1,7 @@
 import 'package:flash/Screens/ChatScreen.dart';
 import 'package:flutter/material.dart';
 class RegistrationScreen extends StatefulWidget {
-  String id = 'registrationscreen';
+  static String id = 'registrationscreen';
   @override
   _RegistrationScreenState createState() => _RegistrationScreenState();
 }
@@ -17,9 +17,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             //logo
-            Container(
-              height: 200,
-              child: Image.asset('images/logo.png'),
+            Hero(
+              tag: 'logo',
+              child: Container(
+                height: 200,
+                child: Image.asset('images/logo.png'),
+              ),
             ),
             //text field for email or username
             TextField(
@@ -82,7 +85,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 child: MaterialButton(
                   onPressed: () {
                     //Go to login screen.
-                    Navigator.pushNamed(context, ChatScreen().id);
+                    Navigator.pushNamed(context, ChatScreen.id);
                   },
                   minWidth: 200.0,
                   height: 42.0,

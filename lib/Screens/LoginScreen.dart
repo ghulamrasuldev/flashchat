@@ -2,7 +2,7 @@ import 'package:flash/Screens/ChatScreen.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
-  String id = 'loginscreen';
+  static String id = 'loginscreen';
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -18,9 +18,12 @@ class _LoginScreenState extends State<LoginScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             //logo
-            Container(
-              height: 200,
-              child: Image.asset('images/logo.png'),
+            Hero(
+              tag: 'logo',
+              child: Container(
+                height: 200,
+                child: Image.asset('images/logo.png'),
+              ),
             ),
             //text field for email or username
             TextField(
@@ -81,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: MaterialButton(
                   onPressed: () {
                     //Go to login screen.
-                    Navigator.pushNamed(context,ChatScreen().id);
+                    Navigator.pushNamed(context,ChatScreen.id);
                   },
                   minWidth: 200.0,
                   height: 42.0,

@@ -14,13 +14,13 @@ class FlashChat extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       //Start Screen
-      initialRoute: '1.Welcome',
+      initialRoute: WelcomeScreen().id,
       //Defining Routes for my app
       routes: {
-        '1.Welcome': (context) => WelcomeScreen(),
-        '2.Login': (context) => LoginScreen(),
-        '3.Register': (context) => RegistrationScreen(),
-        '4.Chat': (context) => ChatScreen(),
+        WelcomeScreen().id: (context) => WelcomeScreen(),
+        LoginScreen().id: (context) => LoginScreen(),
+        RegistrationScreen().id: (context) => RegistrationScreen(),
+        ChatScreen().id: (context) => ChatScreen(),
       },
     );
   }

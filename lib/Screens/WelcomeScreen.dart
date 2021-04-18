@@ -7,7 +7,6 @@ class WelcomeScreen extends StatefulWidget {
   @override
   _WelcomeScreenState createState() => _WelcomeScreenState();
 }
-
 class _WelcomeScreenState extends State<WelcomeScreen>
     with SingleTickerProviderStateMixin {
   String AppName = 'FlashChat';
@@ -32,7 +31,6 @@ class _WelcomeScreenState extends State<WelcomeScreen>
       setState(() {});
     });
   }
-
   @override
   void dispose() {
     controller.dispose();

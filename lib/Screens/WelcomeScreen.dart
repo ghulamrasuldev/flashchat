@@ -1,17 +1,48 @@
 import 'package:flash/Screens/LoginScreen.dart';
 import 'package:flash/Screens/RegistrationScreen.dart';
 import 'package:flutter/material.dart';
+
 class WelcomeScreen extends StatefulWidget {
   static String id = 'welcomescreem';
   @override
   _WelcomeScreenState createState() => _WelcomeScreenState();
 }
 
-class _WelcomeScreenState extends State<WelcomeScreen> {
+class _WelcomeScreenState extends State<WelcomeScreen>
+    with SingleTickerProviderStateMixin {
+  String AppName = 'FlashChat';
+  AnimationController controller;
+  CurvedAnimation curvedAnimation;
+  Animation colorAnimation;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 1),
+    );
+    curvedAnimation = CurvedAnimation(
+      parent: controller,
+      curve: Curves.easeInOut,
+    );
+    colorAnimation = ColorTween(begin: Colors.blueGrey, end: Colors.white).animate(controller);
+    controller.forward();
+    controller.addListener(() {
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: colorAnimation.value,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
@@ -25,11 +56,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   tag: 'logo',
                   child: Container(
                     child: Image.asset('images/logo.png'),
-                    height: 60.0,
+                    height: curvedAnimation.value * 60,
                   ),
                 ),
                 Text(
-                  'Flash Chat',
+                  AppName.substring(
+                      0, (curvedAnimation.value * (AppName.length)).toInt()),
                   style: TextStyle(
                     fontSize: 45.0,
                     fontWeight: FontWeight.w900,

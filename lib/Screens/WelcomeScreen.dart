@@ -7,6 +7,7 @@ class WelcomeScreen extends StatefulWidget {
   @override
   _WelcomeScreenState createState() => _WelcomeScreenState();
 }
+
 class _WelcomeScreenState extends State<WelcomeScreen>
     with SingleTickerProviderStateMixin {
   String AppName = 'FlashChat';
@@ -25,17 +26,20 @@ class _WelcomeScreenState extends State<WelcomeScreen>
       parent: controller,
       curve: Curves.easeInOut,
     );
-    colorAnimation = ColorTween(begin: Colors.blueGrey, end: Colors.white).animate(controller);
+    colorAnimation = ColorTween(begin: Colors.blueGrey, end: Colors.white)
+        .animate(controller);
     controller.forward();
     controller.addListener(() {
       setState(() {});
     });
   }
+
   @override
   void dispose() {
     controller.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,46 +75,52 @@ class _WelcomeScreenState extends State<WelcomeScreen>
               height: 48.0,
             ),
             //Login Screen Button
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.0),
-              child: Material(
-                elevation: 5.0,
-                color: Colors.lightBlueAccent,
-                borderRadius: BorderRadius.circular(30.0),
-                child: MaterialButton(
-                  onPressed: () {
-                    //Go to login screen.
-                    Navigator.pushNamed(context, LoginScreen.id);
-                  },
-                  minWidth: 200.0,
-                  height: 42.0,
-                  child: Text(
-                    'Log In',
-                  ),
-                ),
-              ),
+            RoundedButton(
+              color: Colors.lightBlueAccent,
+              text: 'Login',
+              onPressed: () {
+                //Go to login screen.
+                Navigator.pushNamed(context, LoginScreen.id);
+              },
             ),
             //Sign Up Screen Button
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.0),
-              child: Material(
-                color: Colors.blueAccent,
-                borderRadius: BorderRadius.circular(30.0),
-                elevation: 5.0,
-                child: MaterialButton(
-                  onPressed: () {
-                    //Go to registration screen.
-                    Navigator.pushNamed(context, RegistrationScreen.id);
-                  },
-                  minWidth: 200.0,
-                  height: 42.0,
-                  child: Text(
-                    'Register',
-                  ),
-                ),
-              ),
+            RoundedButton(
+              onPressed: () {
+                //Go to registration screen.
+                Navigator.pushNamed(context, RegistrationScreen.id);
+              },
+              text: 'Register',
+              color: Colors.blueAccent,
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class RoundedButton extends StatelessWidget {
+  RoundedButton({this.color, this.text, @required this.onPressed});
+  final Color color;
+  final String text;
+  final Function onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 16.0),
+      child: Material(
+        elevation: 5.0,
+        color: color,
+        borderRadius: BorderRadius.circular(30.0),
+        child: MaterialButton(
+          onPressed: onPressed,
+          minWidth: 200.0,
+          height: 42.0,
+          child: Text(
+            text,
+            style: TextStyle(color: Colors.white),
+          ),
         ),
       ),
     );

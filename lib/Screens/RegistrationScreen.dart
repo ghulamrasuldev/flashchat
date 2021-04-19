@@ -1,4 +1,6 @@
+import 'package:flash/Constants.dart';
 import 'package:flash/Screens/ChatScreen.dart';
+import 'package:flash/Screens/WelcomeScreen.dart';
 import 'package:flutter/material.dart';
 class RegistrationScreen extends StatefulWidget {
   static String id = 'registrationscreen';
@@ -29,19 +31,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               onChanged: (value){
 
               },
-              decoration: InputDecoration(
-                enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(30)),
-                    borderSide: BorderSide(color: Colors.lightBlueAccent, width: 1)
-                ),
-                hintText: 'Email/Username',
-                contentPadding: EdgeInsets.symmetric(vertical: 20,horizontal: 20),
-                focusedBorder: OutlineInputBorder(
-                  borderSide:
-                  BorderSide(color: Colors.lightBlue, width: 2.0),
-                  borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                ),
-              ),
+              decoration: kInputDecoration.copyWith(hintText: 'Enter an Email'),
             ),
             //sized box to make room between both input fields
             SizedBox(
@@ -52,48 +42,20 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               onChanged: (value) {
                 //Do something with the user input.
               },
-              decoration: InputDecoration(
-                hintText: 'Enter your password.',
-                contentPadding:
-                EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide:
-                  BorderSide(color: Colors.lightBlueAccent, width: 1.0),
-                  borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide:
-                  BorderSide(color: Colors.lightBlueAccent, width: 2.0),
-                  borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                ),
-              ),
+              decoration: kInputDecoration.copyWith(hintText: 'Enter the Password'),
             ),
             //sized box to make room between text field and login button
             SizedBox(
               height: 24.0,
             ),
             //login button
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.0),
-              child: Material(
-                elevation: 5.0,
-                color: Colors.lightBlueAccent,
-                borderRadius: BorderRadius.circular(30.0),
-                child: MaterialButton(
-                  onPressed: () {
-                    //Go to login screen.
-                    Navigator.pushNamed(context, ChatScreen.id);
-                  },
-                  minWidth: 200.0,
-                  height: 42.0,
-                  child: Text(
-                    'Register',
-                  ),
-                ),
-              ),
+            RoundedButton(
+              onPressed: () {
+                //Go to registration screen.
+                Navigator.pushNamed(context, ChatScreen.id);
+              },
+              text: 'Register',
+              color: Colors.blueAccent,
             ),
           ],
         ),

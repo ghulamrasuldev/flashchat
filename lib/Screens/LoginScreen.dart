@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flash/Constants.dart';
 import 'package:flash/Screens/ChatScreen.dart';
 import 'package:flash/Screens/WelcomeScreen.dart';
+import 'package:flash/Utilities/Utilities.dart';
 import 'package:flutter/material.dart';
-
+import 'package:rflutter_alert/rflutter_alert.dart';
 class LoginScreen extends StatefulWidget {
   static String id = 'loginscreen';
   @override
@@ -10,6 +12,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final _auth = FirebaseAuth.instance;
   String email='',password='';
   @override
   Widget build(BuildContext context) {
@@ -59,9 +62,16 @@ class _LoginScreenState extends State<LoginScreen> {
             RoundedButton(
               color: Colors.lightBlueAccent,
               text: 'Login',
-              onPressed: () {
+              onPressed: () async{
                 //Go to login screen.
-                Navigator.pushNamed(context, ChatScreen.id);
+                try {
+                  final NewUser = await _auth.signInWithEmailAndPassword(email: email, password: password);
+                  if(NewUser!=null){
+                    Navigator.pushNamed(context, ChatScreen.id);
+                  }
+                } catch (e) {
+                  Alert(context: context, title: "Something went Wrong", desc: e.toString().substring(findcharacter(e.toString(), ']'))).show();
+                }
               },
             ),
           ],

@@ -2,10 +2,11 @@ import 'package:flash/Constants.dart';
 import 'package:flash/Screens/ChatScreen.dart';
 import 'package:flash/Screens/LoginScreen.dart';
 import 'package:flash/Screens/WelcomeScreen.dart';
+import 'package:flash/Utilities/Utilities.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
+import 'package:rflutter_alert/rflutter_alert.dart';
 class RegistrationScreen extends StatefulWidget {
   static String id = 'registrationscreen';
   @override
@@ -71,7 +72,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     Navigator.pushNamed(context, ChatScreen.id);
                   }
                 } catch (e) {
-                  print(e);
+                  Alert(context: context, title: "Something went Wrong", desc: e.toString().substring(findcharacter(e.toString(), ']'))).show();
                 }
               },
               text: 'Register',

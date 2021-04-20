@@ -1,4 +1,3 @@
-
 import 'package:flash/Screens/ChatScreen.dart';
 import 'package:flash/Screens/LoginScreen.dart';
 import 'package:flash/Screens/RegistrationScreen.dart';

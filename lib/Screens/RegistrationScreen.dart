@@ -1,7 +1,11 @@
 import 'package:flash/Constants.dart';
 import 'package:flash/Screens/ChatScreen.dart';
+import 'package:flash/Screens/LoginScreen.dart';
 import 'package:flash/Screens/WelcomeScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 class RegistrationScreen extends StatefulWidget {
   static String id = 'registrationscreen';
   @override
@@ -9,13 +13,15 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+  final _auth = FirebaseAuth.instance;
+  String email = '', password = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
-          mainAxisAlignment:MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             //logo
@@ -28,8 +34,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             ),
             //text field for email or username
             TextField(
-              onChanged: (value){
-
+              keyboardType: TextInputType.emailAddress,
+              textAlign: TextAlign.center,
+              onChanged: (value) {
+                email = value;
               },
               decoration: kInputDecoration.copyWith(hintText: 'Enter an Email'),
             ),
@@ -39,10 +47,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             ),
             //text field for password
             TextField(
+              obscureText: true,
+              textAlign: TextAlign.center,
               onChanged: (value) {
+                password = value;
                 //Do something with the user input.
               },
-              decoration: kInputDecoration.copyWith(hintText: 'Enter the Password'),
+              decoration:
+                  kInputDecoration.copyWith(hintText: 'Enter the Password'),
             ),
             //sized box to make room between text field and login button
             SizedBox(
@@ -50,9 +62,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             ),
             //login button
             RoundedButton(
-              onPressed: () {
-                //Go to registration screen.
-                Navigator.pushNamed(context, ChatScreen.id);
+              onPressed: () async {
+                //Go to registration screen.\
+                try {
+                  final NewUser = await _auth.createUserWithEmailAndPassword(
+                      email: email, password: password);
+                  if(NewUser!=null){
+                    Navigator.pushNamed(context, ChatScreen.id);
+                  }
+                } catch (e) {
+                  print(e);
+                }
               },
               text: 'Register',
               color: Colors.blueAccent,

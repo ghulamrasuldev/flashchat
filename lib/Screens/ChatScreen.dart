@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flash/constants.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ChatScreen extends StatefulWidget {
   static String id = 'chatscreen';
@@ -9,13 +10,22 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  final _firestore = FirebaseFirestore.instance;
+  String messageText = '';
   final _auth = FirebaseAuth.instance;
   User LoggeInUser;
-
   @override
   void initState() {
     super.initState();
     getCurrentUser();
+  }
+
+  void messageStream() async {
+    await for (var snapshot in _firestore.collection('messages').snapshots()) {
+      for (var message in snapshot.docs) {
+        print(message.data());
+      }
+    }
   }
 
   void getCurrentUser() async {
@@ -35,12 +45,13 @@ class _ChatScreenState extends State<ChatScreen> {
       //AppBar with some designs
       appBar: AppBar(
         actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.close),
+          FlatButton(
             onPressed: () {
-              //function
-              Navigator.pop(context);
+              messageStream();
+              // _auth.signOut();
+              // Navigator.pop(context);
             },
+            child: Text('Logout'),
           ),
         ],
         title: Row(
@@ -71,7 +82,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   Expanded(
                     child: TextField(
                       onChanged: (value) {
-                        //Do something with the user input.
+                        messageText = value;
                       },
                       decoration: kMessageTextFieldDecoration,
                     ),
@@ -80,6 +91,10 @@ class _ChatScreenState extends State<ChatScreen> {
                   FlatButton(
                     onPressed: () {
                       //Implement send functionality.
+                      _firestore.collection('messages').add({
+                        'sender': LoggeInUser.email,
+                        'messageText': messageText,
+                      });
                     },
                     child: Text(
                       'Send',

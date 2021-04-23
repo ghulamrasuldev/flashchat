@@ -81,6 +81,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     });
                   } catch (e) {
                     Alert(context: context, title: "Something went Wrong", desc: e.toString().substring(findcharacter(e.toString(), ']'))).show();
+                    setState(() {
+                      spin=false;
+                    });
                   }
                 },
               ),

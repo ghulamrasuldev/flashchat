@@ -83,6 +83,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     });
                   } catch (e) {
                     Alert(context: context, title: "Something went Wrong", desc: e.toString().substring(findcharacter(e.toString(), ']'))).show();
+                    setState(() {
+                      spin=false;
+                    });
                   }
                 },
                 text: 'Register',

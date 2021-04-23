@@ -71,8 +71,27 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
       body: SafeArea(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            StreamBuilder(
+              stream: _firestore.collection('messages').snapshots(),
+              builder: (context,snapshpt){
+                List<Text> messageWidgets = [];
+                if(snapshpt.hasData){
+                  final messages = snapshpt.data.docs;
+                  for(var message in messages){
+                    final messageText = message.data()['messageText'];
+                    final sender = message.data()['sender'];
+                    final messageWidget = Text('$messageText from $sender');
+                    messageWidgets.add(messageWidget);
+                  }
+                }
+                return Column(
+                  children: messageWidgets,
+                );
+              },
+            ),
             Container(
               //Added Row to put text field and send message on same line
               child: Row(
@@ -110,3 +129,4 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 }
+

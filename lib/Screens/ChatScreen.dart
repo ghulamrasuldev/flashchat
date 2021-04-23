@@ -8,6 +8,10 @@ User loggedInUser;
 String currentEmail;
 class ChatScreen extends StatefulWidget {
   static const String id = 'chat_screen';
+  String email;
+  ChatScreen({this.email}){
+    currentEmail = email;
+  }
   @override
   _ChatScreenState createState() => _ChatScreenState();
 }
@@ -15,7 +19,6 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   final messageTextController = TextEditingController();
   final _auth = FirebaseAuth.instance;
-
   String messageText;
 
   @override
@@ -29,7 +32,6 @@ class _ChatScreenState extends State<ChatScreen> {
       final user = await _auth.currentUser;
       if (user != null) {
         loggedInUser = user;
-        currentEmail=user.email;
       }
     } catch (e) {
       print(e);
@@ -116,8 +118,7 @@ class MessagesStream extends StatelessWidget {
           final messageText = message.data()['text'];
           final messageSender = message.data()['sender'];
 
-          final currentUser = '$currentEmail';
-
+          final currentUser = currentEmail;
           final messageBubble = MessageBubble(
             sender: messageSender,
             text: messageText,
@@ -154,7 +155,7 @@ class MessageBubble extends StatelessWidget {
         isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            sender,
+            '$sender',
             style: TextStyle(
               fontSize: 12.0,
               color: Colors.black54,

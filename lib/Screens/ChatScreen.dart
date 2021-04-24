@@ -8,10 +8,6 @@ User loggedInUser;
 String currentEmail;
 class ChatScreen extends StatefulWidget {
   static const String id = 'chat_screen';
-  String email;
-  ChatScreen({this.email}){
-    currentEmail = email;
-  }
   @override
   _ChatScreenState createState() => _ChatScreenState();
 }
@@ -79,10 +75,10 @@ class _ChatScreenState extends State<ChatScreen> {
                       messageTextController.clear();
                       _firestore.collection('messages').add({
                         'text': messageText,
-                        'sender': currentEmail,
+                        'sender': loggedInUser.email,
 
                       });
-                      print(currentEmail);
+                      print(loggedInUser.email);
                     },
                     child: Text(
                       'Send',
@@ -117,8 +113,7 @@ class MessagesStream extends StatelessWidget {
         for (var message in messages) {
           final messageText = message.data()['text'];
           final messageSender = message.data()['sender'];
-
-          final currentUser = currentEmail;
+          final currentUser = loggedInUser.email;
           final messageBubble = MessageBubble(
             sender: messageSender,
             text: messageText,

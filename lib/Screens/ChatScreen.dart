@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 final _firestore = FirebaseFirestore.instance;
 User loggedInUser;
 String currentEmail;
+int MessageNumber=0;
 class ChatScreen extends StatefulWidget {
   static const String id = 'chat_screen';
   @override
@@ -76,9 +77,8 @@ class _ChatScreenState extends State<ChatScreen> {
                       _firestore.collection('messages').add({
                         'text': messageText,
                         'sender': loggedInUser.email,
-
+                        'time' : DateTime.now(),
                       });
-                      print(loggedInUser.email);
                     },
                     child: Text(
                       'Send',
@@ -99,7 +99,7 @@ class MessagesStream extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: _firestore.collection('messages').snapshots(),
+      stream: _firestore.collection('messages').orderBy('time').limitToLast(100).snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return Center(
@@ -119,7 +119,6 @@ class MessagesStream extends StatelessWidget {
             text: messageText,
             isMe: currentUser == messageSender,
           );
-
           messageBubbles.add(messageBubble);
         }
         return Expanded(
